@@ -1,0 +1,95 @@
+﻿@model MoviePicker.Models.IndexModels.IndexModel;
+
+@{
+    ViewData["Title"] = "Movie Picker";
+}
+
+
+
+<div class="search-body">
+    <p>I want to watch a...</p>
+
+    @using (Html.BeginForm("Submit", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return validate()" }))
+    {
+        <div class="option-boxes">
+
+
+
+            <span class="option" id="search-type">
+                <select name="type" id="type-box">
+                    <option value="movie">Movie</option>
+                    <option value="tv">TV Show</option>
+                </select>
+            </span>
+
+            <span id="actor-text">with actor/actress</span>
+
+            <span class="option" id="actor">
+                @Html.EditorFor(model => model.actor, new { htmlattributes = new { @class = "search-form", id = "search-actor", placeholder = "Required" } })
+            </span>
+
+            of the genre
+
+            <span class="option" id="genre">
+                <select class="search-form" id="search-genre" name="genre">
+                    <option value="" id="search-genre-default">--Required--</option>
+                    <option value="28">Action</option>
+                    <option value="12">Adventure</option>
+                    <option value="16">Animation</option>
+                    <option value="35">Comedy</option>
+                    <option value="80">Crime</option>
+                    <option value="99">Documentary</option>
+                    <option value="18">Drama</option>
+                    <option value="10751">Family</option>
+                    <option value="14">Fantasy</option>
+                    <option value="36">History</option>
+                    <option value="10402">Music</option>
+                    <option value="9648">Mystery</option>
+                    <option value="10749">Romance</option>
+                    <option value="878">Sci-Fi</option>
+                    <option value="10770">Tv Movie</option>
+                    <option value="53">Thriller</option>
+                    <option value="10752">War</option>
+                    <option value="37">Western</option>
+                </select>
+            </span>
+
+            from the year
+
+            <span class="option" id="year">
+                @Html.EditorFor(model => model.year, new { htmlattributes = new { @class = "search-form", id = "search-year", placeholder = "Required" } })
+            </span>
+
+            sort by
+
+            <span class="option" id="sort-by">
+                <select class="search-form" id="search-sort-by" name="sort_by">
+                    <option value="popularity.desc"></option>
+                    <option value="popularity.asc">Popularity Asc.</option>
+                    <option value="popularity.desc">Popularity Desc.</option>
+                    <option value="release_date.asc">Date Asc.</option>
+                    <option value="release_date.desc">Date Desc.</option>
+                    <option value="vote_average.asc">Average Rating Asc.</option>
+                    <option value="vote_average.desc">Average Rating Desc.</option>
+                </select>
+            </span>
+
+            <div class="button-container">
+                <button type="submit" id="form-submit" class="submit-button">Find it!</button>
+            </div>
+
+        </div>
+
+    }
+
+</div>
+
+<div class="about">
+    <h3>How to use:</h3>
+    <ul>
+        <li>Fill in at least 1 field. (Due to limitations you cannot search TV show by actor.)</li>
+        <li>Press "Find it!" and see your results!</li>
+        <li>Each result will have a vote average pulled from a few different APIs. (Be cautious, this is user voted!)</li>
+        <li>A vote of 7 or above is shown by a green glow, between 4 and 7 is amber and less than 4 is red.</li>
+    </ul>
+</div>

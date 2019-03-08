@@ -1,0 +1,84 @@
+﻿@model List<MoviePicker.Models.API.RootObject>;
+
+@{
+    ViewData["Title"] = "Movie Picker | Results";
+}
+
+<h2 class="title">Found @Model[0].total_results macthes to your search!</h2>
+<div class="container">
+
+    <p>Showing page @Model[0].page of @Model[0].total_pages</p>
+    <div class="row">
+        <div class="col-lg-6">
+            @if (Model[0].page != 1)
+            {
+
+                @using (Html.BeginForm())
+                {
+                    <input type="submit" value="Previous Page" name="pageButton" class="page-button" />
+                }
+            }
+        </div>
+        <div class="col-lg-6 text-right">
+            @if (Model[0].page != Model[0].total_pages)
+            {
+                @using (Html.BeginForm())
+                {
+                    <input type="submit" value="Next Page" name="pageButton" class="page-button" />
+                }
+
+            }
+        </div>
+    </div>
+    <div class="row">
+
+        @foreach (var movie in Model[0].Results)
+        {
+            <div class="col-lg-3">
+                <div class="movie-container">
+                    @{string baseUrl = "http://image.tmdb.org/t/p/w185";}
+
+                    <div class="movie-vote-container">
+                        <p class="vote-text">@movie.vote_average</p>
+                    </div>
+
+                    <img src="@baseUrl@movie.poster_path" class="movie-poster" />
+
+                    @if (movie.title != null)
+                    {
+                        <p>@movie.title</p>
+                        <p>@movie.release_date</p>
+                    }
+                    else
+                    {
+                        <p>@movie.name</p>
+                        <p>First aired: @movie.first_air_date</p>
+                    }
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            @if (Model[0].page != 1)
+            {
+
+                @using (Html.BeginForm())
+                {
+                    <input type="submit" value="Previous Page" name="pageButton" class="page-button" />
+                }
+            }
+        </div>
+        <div class="col-lg-6 text-right">
+            @if (Model[0].page != Model[0].total_pages)
+            {
+                @using (Html.BeginForm())
+                {
+                    <input type="submit" value="Next Page" name="pageButton" class="page-button" />
+                }
+
+            }
+        </div>
+    </div>
+</div>
